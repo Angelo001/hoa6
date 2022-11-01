@@ -1,0 +1,16 @@
+- hosts: db_servers
+  become: true
+  tasks:
+
+  - name: install mariadb package (CentOS)
+    tags: centos, db,mariadb
+    dnf:
+      name: mariadb-server
+      state: latest
+    when: ansible_distribution == "CentOS"
+
+  - name: "Mariadb- Restarting/Enabling"
+    service:
+      name: mariadb
+      state: restarted
+      enabled: true
